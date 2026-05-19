@@ -16,17 +16,56 @@
 
 			let n=0;
 
+			let $writeup = $('<writeup>').appendTo('body');
+			$('<h1>').appendTo($writeup).text(MYSTERY.title);
+			$('<p>').appendTo($writeup).text(MYSTERY.setting);
+
 			for(var c in MYSTERY.carriages){
 				let carriage = MYSTERY.carriages[c];
 				
 				let $carriage = $('<carriage>').appendTo($train).css({
-					width: carriage.size.width * GRID + "px",
-					height: carriage.size.height * GRID + "px",
+					width: carriage.grid_size.width * GRID + "px",
+					height: carriage.grid_size.height * GRID + "px",
 				})
 
-				$('<name>').appendTo($carriage).html(carriage.name+'<hr>');
+				$('<name>').appendTo($carriage).html(carriage.name);
 
-				for(var y=0; y<carriage.grid.length; y++){
+				for(var c in carriage.characters){
+					let $c = $('<character>').appendTo($carriage).css({
+						left: carriage.characters[c].x * GRID + 'px',
+						top: carriage.characters[c].y * GRID + 'px',
+					}).attr('n',n++);
+
+					let $info = $('<info>').appendTo($c).html(
+						'<b>'+carriage.characters[c].name+'</b>'
+						+'<hr>'
+						+carriage.characters[c].free_information
+						+'<hr>'
+						+'Needs: '
+						+carriage.characters[c].needs
+						+'<hr>'
+						+'Reveal: '
+						+carriage.characters[c].reveals_after_requirement
+						);
+				}
+
+				for(var o in carriage.objects){
+					let $o = $('<obj>').appendTo($carriage).css({
+						left: carriage.objects[o].x * GRID + 'px',
+						top: carriage.objects[o].y * GRID + 'px',
+					})
+
+					let $info = $('<info>').appendTo($o).html(
+						'<b>'+carriage.objects[o].name+'</b>'
+						+'<hr>'
+						+carriage.objects[o].description
+						+'<hr>'
+						+'Relevance: '
+						+carriage.objects[o].relevance
+						);
+				}
+
+				/*for(var y=0; y<carriage.grid.length; y++){
 					for(var x=0; x<carriage.grid[y].length; x++){
 						let $grid = $('<grid>').appendTo($carriage).attr('KEY',carriage.grid[y][x]).attr('y',y).attr('x',x);
 					}
@@ -49,7 +88,7 @@
 						$('<blockquote>').appendTo($info).text(obj.quote);
 
 					}
-				}
+				}*/
 			}
 		})
 	</script>
@@ -89,29 +128,35 @@
 			vertical-align: middle;
 			margin: 2px;
 			
-			box-shadow: 0px 100px 10px rgba(0,0,0,0.3);
+			box-shadow: inset 0px 10px 20px rgba(0,0,0,0.3), 0px 100px 10px rgba(0,0,0,0.3);
 			white-space: normal;
 			line-height: 0px;
 			position: relative;
+
+			background: gray;
+			border-radius: 10px;
+			border: 3px solid #999;
 		}
+
 
 		carriage name{
 			display: block;
 			position: absolute;
 			
 			left: 0px;
+			right: 0px;
 			top: -20px;
 			color: #ddd;
 
 			
-			font-size: 20px;
+			font-size: 15px;
 			
 			
 			
 			
 			white-space: normal;
 			
-			text-align: center;
+			
 		}
 
 		grid{
@@ -130,23 +175,42 @@
 			background: #777;
 		}
 
-		obj{
+		
+		character, obj{
 			display: block;
-			width: 100%;
-			height: 100%;
-			border-radius: 50%;
-			background: red;
-			position: relative;
+			position: absolute;
+			cursor: pointer;
 		}
 
-		obj[type='character']{
+		obj:after{
+			content: "?";
+			display: block;
+			width: 20px;
+			height: 20px;
+			left: -10px;
+			top: -10px;
+			border-radius: 50%;
+			background: rgba(0, 0, 0, 0.1);
+			position: absolute;
+			text-align: center;
+			color: orange;
+			font-weight: bold;
+			line-height: 20px;
+		}
+
+		character:after{
+			content: "";
+			display: block;
+			width: 40px;
+			height: 40px;
+			left: -20px;
+			top: -20px;
+			border-radius: 50%;
+			background: red;
+			position: absolute;
 			background-color: transparent;
 			background-image: url(./humans.png);
 			background-size: 500%;
-			width: 200%;
-			height: 200%;
-			left: -50%;
-			top: -75%;
 		}
 
 		obj[type='corpse']{
@@ -159,15 +223,17 @@
 			top: -100%;
 		}
 
-		obj[type='character'][n='1']{ background-position-x: -100%; }
-		obj[type='character'][n='2']{ background-position-x: -200%; }
-		obj[type='character'][n='3']{ background-position-x: -300%; }
-		obj[type='character'][n='4']{ background-position-x: -400%; }
-		obj[type='character'][n='5']{ background-position-x: -500%; }
-		obj[type='character'][n='6']{ background-position-x: -600%; }
+		character[n='0']:after{ background-position-x: 0%; }
+		character[n='1']:after{ background-position-x: -100%; }
+		character[n='2']:after{ background-position-x: -200%; }
+		character[n='3']:after{ background-position-x: -300%; }
+		character[n='4']:after{ background-position-x: -400%; }
+		character[n='5']:after{ background-position-y: -100%; }
+		character[n='6']:after{ background-position-y: -100%; background-position-x: -100%; }
+		character[n='7']:after{ background-position-y: -100%; background-position-x: -200%; }
 
-		obj info{
-			display: none;
+		info{
+			display: block;
 			position: absolute;
 			bottom: 50px;
 			left: 0px;
@@ -179,14 +245,17 @@
 			transform: translateX(-50%);
 			
 			box-sizing: border-box;
-			z-index: 1;
 			white-space: normal;
 			border-radius: 5px;
 			width: 300px;
+			z-index: 1;
+			pointer-events: none;
+			visibility: hidden;
 		}
 
-		obj:hover info{
-			display: block;
+		character:hover info, obj:hover info{
+			
+			visibility: visible;
 		}
 
 		blockquote:before{
@@ -213,6 +282,26 @@
 			animation-iteration-count: infinite;
 			animation-timing-function: linear;
 			width: 200vw;
+		}
+
+		writeup{
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			background: white;
+			padding: 20px;
+			display: block;
+			color: black;
+			width: 300px;
+			background: ;
+			box-shadow: 0px 25px 10px rgba(0,0,0,0.2);
+			background: #e8d3c0;
+		}
+
+		h1{
+			margin: 0px;
+			padding: 0px;
+			line-height: 1em;
 		}
 
 		@keyframes scroll {

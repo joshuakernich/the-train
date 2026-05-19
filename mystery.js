@@ -1,502 +1,350 @@
 MYSTERY = {
-  "title": "The Last Crossing of the Obsidian Comet",
-  "setting": {
-    "trainName": "Obsidian Comet",
-    "route": "Frozen mountain pass to coastal capital",
-    "timePeriod": "Retro-futuristic dieselpunk",
-    "timeOfDeath": "23:47"
+  "title": "Murder on the Blackglass Line",
+  "setting": "A luxury overnight train trapped in a mountain storm after a sudden blackout.",
+  "objective": {
+    "solve": [
+      "Determine the murderer",
+      "Determine the true murder weapon"
+    ],
+    "solution": {
+      "murderer": "Dr. Mirelle Vale",
+      "murder_weapon": "Silver Fountain Pen with concealed toxin injector"
+    }
   },
-  "solution": {
-    "killer": "Sister Agnes Wren",
-    "victim": "Magnus Vale",
-    "weapon": "Industrial ice hook hidden inside a ceremonial candle staff",
-    "murderLocation": "Observation Dome",
-    "method": "Agnes stabbed Vale during the tunnel blackout, then remotely triggered the rotating dome mechanism from the Projection Booth to create a false locked-room scenario."
-  },
+  "starting_carriage": "Passenger Sleeper C",
+  "body_location": "Maintenance Vault",
   "carriages": [
     {
       "id": "car_01",
-      "name": "Engine",
-      "type": "locomotive",
-      "size": {
-        "width": 9,
-        "height": 5
+      "name": "Passenger Sleeper C",
+      "type": "Sleeper",
+      "starting_carriage": true,
+      "grid_size": {
+        "width": 8,
+        "height": 6
       },
-      "connections": {
-        "east": "car_02"
-      },
-      "grid": [
-        "WWWWWWWWW",
-        "WBB...FFW",
-        "W....L..W",
-        "WTT...VVW",
-        "WWWDWWWWW"
+      "characters": [
+        {
+          "name": "Nina Bell",
+          "x": 2,
+          "y": 2,
+          "free_information": "\"I swear I heard people arguing near the dining car before the blackout... and someone in a dark coat rushed past my cabin. My nerves are shot. If you can find me something calming to drink, maybe I can remember more clearly.\"",
+          "needs": "Tea Tin",
+          "reveals_after_requirement": "\"Thank you... yes, now I remember. The person wore polished silver shoes, and there was this strange little metallic click every time they moved.\"",
+          "secrets": [
+            "She stole another passenger's wallet earlier that night."
+          ]
+        }
       ],
-      "legend": {
-        "W": "wall",
-        "B": "boiler",
-        "F": "furnace",
-        "L": "tool locker",
-        "T": "coal trolley",
-        "V": "steam valve",
-        "D": "door"
-      },
       "objects": [
         {
-          "id": "obj_engine_edgar_flint",
-          "type": "character",
-          "name": "Edgar Flint",
-          "position": [3, 2],
-          "relevance": "minor",
-          "description": "The chief engineer with ash-covered gloves and a permanent squint.",
-          "quote": "The blackout was scheduled, but someone pulled extra current from the projection systems."
+          "name": "Abandoned Suitcase",
+          "x": 5,
+          "y": 1,
+          "description": "A battered leather suitcase with faded travel stickers.",
+          "relevance": "Contains forged travel documents unrelated to the murder.",
+          "collectible": false
         },
         {
-          "id": "obj_engine_revolver",
-          "type": "weapon",
-          "name": "Rusty Revolver",
-          "position": [3, 1],
-          "relevance": "red_herring",
-          "description": "An unloaded revolver wrapped in oily cloth."
+          "name": "Silver Wallet",
+          "x": 1,
+          "y": 4,
+          "description": "An expensive wallet hidden beneath a lower bunk.",
+          "relevance": "Can be returned to another passenger to gain trust.",
+          "collectible": true
         },
         {
-          "id": "obj_engine_log",
-          "type": "document",
-          "name": "Maintenance Log",
-          "position": [5, 2],
-          "relevance": "major",
-          "description": "Confirms power fluctuations during Blackglass Tunnel."
+          "name": "Train Route Pamphlet",
+          "x": 6,
+          "y": 5,
+          "description": "A folded route map of the Blackglass Line.",
+          "relevance": "Reveals the hidden Maintenance Vault access corridor.",
+          "collectible": true
         }
       ]
     },
     {
       "id": "car_02",
-      "name": "Coal Tender",
-      "type": "storage",
-      "size": {
+      "name": "Velvet Dining Car",
+      "type": "Dining",
+      "grid_size": {
         "width": 10,
-        "height": 5
+        "height": 7
       },
-      "connections": {
-        "west": "car_01",
-        "east": "car_03"
-      },
-      "grid": [
-        "WWWWWWWWWW",
-        "WCCCCCC..W",
-        "WCC..CCS.W",
-        "WCC..CC..W",
-        "WWWWDWWWWW"
+      "characters": [
+        {
+          "name": "Sebastian Rook",
+          "x": 3,
+          "y": 2,
+          "free_information": "\"Everyone on this train knows Elias Vane ruined me. That doesn't make me a killer. I was drinking here during the blackout, though someone clearly tampered with my wine. Bring me proof and maybe I'll help you.\"",
+          "needs": "Evidence of drink tampering",
+          "reveals_after_requirement": "\"Fine. I saw Dr. Mirelle Vale leaving the Observatory Lounge just before the lights went out.\"",
+          "motives": [
+            "Elias destroyed his business empire."
+          ],
+          "red_herring": true
+        },
+        {
+          "name": "Conductor Hale",
+          "x": 8,
+          "y": 1,
+          "free_information": "\"The blackout disrupted several secured systems. Someone got into a restricted area during the confusion. If you happen to recover the missing brass control key, I'll tell you what I know.\"",
+          "needs": "Brass Control Key",
+          "reveals_after_requirement": "\"The Maintenance Vault was opened during the blackout. Only crew members and Elias knew it existed.\"",
+          "secrets": [
+            "He has been smuggling luxury goods aboard the train."
+          ]
+        }
       ],
-      "legend": {
-        "W": "wall",
-        "C": "coal pile",
-        "S": "secret hatch",
-        "D": "door"
-      },
       "objects": [
         {
-          "id": "obj_tender_footprint",
-          "type": "clue",
-          "name": "Ash Footprint",
-          "position": [7, 2],
-          "relevance": "major",
-          "description": "A partial footprint dusted with silver projection ash."
+          "name": "Broken Wine Glass",
+          "x": 4,
+          "y": 3,
+          "description": "A shattered crystal wine glass.",
+          "relevance": "Contains sleeping powder, but not the murder toxin.",
+          "collectible": true
+        },
+        {
+          "name": "Receipt Stub",
+          "x": 2,
+          "y": 5,
+          "description": "Receipt for an expensive bottle of wine.",
+          "relevance": "Places Sebastian in the dining car during the murder window.",
+          "collectible": true
+        },
+        {
+          "name": "Brass Control Key",
+          "x": 7,
+          "y": 6,
+          "description": "A heavy brass key lodged beneath a booth.",
+          "relevance": "Unlocks the hidden Maintenance Vault.",
+          "collectible": true
         }
       ]
     },
     {
       "id": "car_03",
-      "name": "Galley",
-      "type": "kitchen",
-      "size": {
-        "width": 10,
-        "height": 6
+      "name": "Galley Car",
+      "type": "Kitchen",
+      "grid_size": {
+        "width": 7,
+        "height": 5
       },
-      "connections": {
-        "west": "car_02",
-        "east": "car_04"
-      },
-      "grid": [
-        "WWWWWWWWWW",
-        "WSS..PP..W",
-        "WKK..TT..W",
-        "W........W",
-        "WFF....D.W",
-        "WWWWWWWWWW"
-      ],
-      "legend": {
-        "W": "wall",
-        "S": "shelf",
-        "P": "pantry",
-        "K": "kitchen range",
-        "T": "table",
-        "F": "freezer",
-        "D": "door"
-      },
-      "objects": [
+      "characters": [
         {
-          "id": "obj_galley_calder",
-          "type": "character",
-          "name": "Mrs. Calder",
-          "position": [5, 3],
-          "relevance": "major",
-          "description": "A stern cook sharpening knives with terrifying precision.",
-          "quote": "Sister Agnes left the kitchen at half past eleven. Said she had a private blessing to perform."
+          "name": "Chef Orlov",
+          "x": 2,
+          "y": 1,
+          "free_information": "\"Someone stole one of my carving knives tonight, and now everyone's staring at me like I'm the murderer. I also saw Dr. Vale washing her hands over and over. Hmph. Find my missing recipe notebook and perhaps I'll speak more carefully.\"",
+          "needs": "Recipe Notebook",
+          "reveals_after_requirement": "\"The knife was returned clean. Too clean. Someone planted it to mislead you.\"",
+          "red_herring": true
         },
         {
-          "id": "obj_galley_teacup",
-          "type": "clue",
-          "name": "Drugged Teacup",
-          "position": [5, 1],
-          "relevance": "red_herring",
-          "description": "Contains sleeping medication, not poison."
+          "name": "Marta Quinn",
+          "x": 5,
+          "y": 3,
+          "free_information": "\"Elias threatened somebody earlier tonight. I heard enough to know it was serious. But I'm not saying another word unless you promise Hale won't hear about it.\"",
+          "needs": "Protection from Conductor Hale",
+          "reveals_after_requirement": "\"Elias was meeting privately with Dr. Vale before the blackout.\""
+        }
+      ],
+      "objects": [
+        {
+          "name": "Bloody Carving Knife",
+          "x": 1,
+          "y": 4,
+          "description": "A kitchen carving knife hidden behind flour sacks.",
+          "relevance": "Covered in animal blood only. Deliberate red herring.",
+          "collectible": true
+        },
+        {
+          "name": "Recipe Notebook",
+          "x": 6,
+          "y": 1,
+          "description": "A grease-stained notebook full of recipes.",
+          "relevance": "Can be returned to Chef Orlov.",
+          "collectible": true
+        },
+        {
+          "name": "Tea Tin",
+          "x": 3,
+          "y": 4,
+          "description": "Decorative tin filled with calming herbal tea.",
+          "relevance": "Can calm Nina Bell enough to remember additional details.",
+          "collectible": true
         }
       ]
     },
     {
       "id": "car_04",
-      "name": "Passenger Carriage",
-      "type": "luxury_seating",
-      "size": {
-        "width": 12,
-        "height": 6
+      "name": "Observatory Lounge",
+      "type": "Lounge",
+      "grid_size": {
+        "width": 9,
+        "height": 7
       },
-      "connections": {
-        "west": "car_03",
-        "east": "car_05"
-      },
-      "grid": [
-        "WWWWWWWWWWWW",
-        "WB.B..B.B..W",
-        "W..........W",
-        "WB.B..B.B..W",
-        "W..........W",
-        "WWWWWDWWWWWW"
+      "characters": [
+        {
+          "name": "Dr. Mirelle Vale",
+          "x": 6,
+          "y": 2,
+          "free_information": "\"This whole affair is tragic, but clearly accidental. Sebastian Rook was furious enough to kill Elias if you ask me. I've also misplaced my medical case. Recover it and I'll answer a few more questions.\"",
+          "needs": "Medical Case",
+          "reveals_after_requirement": "\"Elias came to me for medical treatment in private. He was desperate to keep it secret.\"",
+          "motives": [
+            "Elias discovered she forged medical licenses."
+          ]
+        },
+        {
+          "name": "Professor Lucien Ward",
+          "x": 2,
+          "y": 5,
+          "free_information": "\"The victim looked dizzy before he vanished. Curious symptoms. I'd think harder on it if I had one of those imported cigarettes from the smoking cabin.\"",
+          "needs": "Imported Cigarettes",
+          "reveals_after_requirement": "\"Those symptoms resemble paralysis, not electrocution. Quite different causes entirely.\"",
+          "red_herring": true
+        }
       ],
-      "legend": {
-        "W": "wall",
-        "B": "booth",
-        "D": "door"
-      },
       "objects": [
         {
-          "id": "obj_passenger_otto",
-          "type": "character",
-          "name": "Otto Crane",
-          "position": [3, 4],
-          "relevance": "red_herring",
-          "description": "The nervous conductor clutching a stained jacket.",
-          "quote": "The blood isn't Vale's. Check the galley freezer if you think I'm lying."
+          "name": "Medical Case",
+          "x": 7,
+          "y": 4,
+          "description": "A locked leather physician's case.",
+          "relevance": "Contains syringes but not the real murder weapon.",
+          "collectible": true
         },
         {
-          "id": "obj_passenger_miriam",
-          "type": "character",
-          "name": "Miriam Vale",
-          "position": [9, 4],
-          "relevance": "minor",
-          "description": "The victim's estranged daughter, exhausted and defensive.",
-          "quote": "I searched my father's cabin, yes. But by then he was already dead."
+          "name": "Silver Fountain Pen",
+          "x": 4,
+          "y": 1,
+          "description": "Elegant silver pen with a cracked nib.",
+          "relevance": "The true murder weapon containing a concealed injector.",
+          "collectible": true
         },
         {
-          "id": "obj_passenger_jacket",
-          "type": "clue",
-          "name": "Bloody Jacket",
-          "position": [2, 3],
-          "relevance": "red_herring",
-          "description": "Pig blood from kitchen stock."
+          "name": "Burned Matchbook",
+          "x": 1,
+          "y": 6,
+          "description": "Luxury hotel matchbook with scorch marks.",
+          "relevance": "Links Elias and Dr. Vale to a shared past scandal.",
+          "collectible": true
         }
       ]
     },
     {
       "id": "car_05",
-      "name": "Chapel of Motion",
-      "type": "surreal_chapel",
-      "size": {
-        "width": 11,
-        "height": 7
+      "name": "Smoking Cabin",
+      "type": "Private Lounge",
+      "grid_size": {
+        "width": 6,
+        "height": 5
       },
-      "connections": {
-        "west": "car_04",
-        "east": "car_06"
-      },
-      "grid": [
-        "WWWWWWWWWWW",
-        "W....A....W",
-        "W.LLLLLLL.W",
-        "W....S....W",
-        "W........W",
-        "W....D....W",
-        "WWWWWWWWWWW"
+      "characters": [
+        {
+          "name": "Edgar Flint",
+          "x": 3,
+          "y": 2,
+          "free_information": "\"During the blackout I saw somebody carrying a lantern toward the rear of the train. Couldn't see their face. Lost my lucky coin tonight too. Bring it back and maybe I'll remember more.\"",
+          "needs": "Lucky Coin",
+          "reveals_after_requirement": "\"The lantern carrier was definitely heading toward the maintenance section.\"",
+          "secrets": [
+            "He owes money to dangerous creditors."
+          ]
+        }
       ],
-      "legend": {
-        "W": "wall",
-        "A": "altar",
-        "L": "lantern row",
-        "S": "speaker podium",
-        "D": "door"
-      },
       "objects": [
         {
-          "id": "obj_chapel_agnes",
-          "type": "character",
-          "name": "Sister Agnes Wren",
-          "position": [2, 4],
-          "relevance": "critical",
-          "description": "A composed caretaker holding a brass candle staff.",
-          "quote": "Magnus wanted forgiveness. Some sins cannot be forgiven."
+          "name": "Imported Cigarettes",
+          "x": 5,
+          "y": 1,
+          "description": "A rare imported cigarette pack.",
+          "relevance": "Can be traded to Professor Ward.",
+          "collectible": true
         },
         {
-          "id": "obj_chapel_staff",
-          "type": "weapon",
-          "name": "Ceremonial Candle Staff",
-          "position": [5, 3],
-          "relevance": "critical",
-          "description": "A hollow brass staff concealing a retractable ice hook."
+          "name": "Lucky Coin",
+          "x": 1,
+          "y": 4,
+          "description": "An engraved silver gambling coin.",
+          "relevance": "Can be returned to Edgar Flint.",
+          "collectible": true
         },
         {
-          "id": "obj_chapel_letter",
-          "type": "document",
-          "name": "Burned Letter Fragment",
-          "position": [2, 2],
-          "relevance": "major",
-          "description": "References Vale blackmailing Agnes over an old derailment."
+          "name": "Lantern",
+          "x": 4,
+          "y": 4,
+          "description": "An oil lantern covered in soot.",
+          "relevance": "Matches witness descriptions but lacks fingerprints.",
+          "collectible": false
         }
       ]
     },
     {
       "id": "car_06",
-      "name": "Projection Booth",
-      "type": "mechanical_projection",
-      "size": {
-        "width": 10,
+      "name": "Maintenance Vault",
+      "type": "Hidden Service Compartment",
+      "hidden": true,
+      "contains_body": true,
+      "grid_size": {
+        "width": 8,
         "height": 6
       },
-      "connections": {
-        "west": "car_05",
-        "east": "car_07"
-      },
-      "grid": [
-        "WWWWWWWWWW",
-        "WPPPP....W",
-        "W.GG..R.W",
-        "W.....L.W",
-        "W....D..W",
-        "WWWWWWWWWW"
+      "characters": [],
+      "entry_requirements": [
+        "Brass Control Key",
+        "Train Route Pamphlet"
       ],
-      "legend": {
-        "W": "wall",
-        "P": "projector",
-        "G": "gear assembly",
-        "R": "remote lock controls",
-        "L": "ladder",
-        "D": "door"
-      },
       "objects": [
         {
-          "id": "obj_projection_lucien",
-          "type": "character",
-          "name": "Lucien Rowe",
-          "position": [3, 3],
-          "relevance": "major",
-          "description": "An anxious projectionist smelling of machine oil.",
-          "quote": "Someone used the remote dome controls after I stepped away. They knew exactly how the lock worked."
+          "name": "Body of Elias Vane",
+          "x": 4,
+          "y": 3,
+          "description": "The victim lies beside damaged electrical equipment.",
+          "relevance": "Appears electrocuted at first glance, but there are no electrical burns.",
+          "collectible": false
         },
         {
-          "id": "obj_projection_grease",
-          "type": "clue",
-          "name": "Silver Machine Grease",
-          "position": [3, 2],
-          "relevance": "major",
-          "description": "Matches residue found on the candle staff."
+          "name": "Scorched Fuse Box",
+          "x": 6,
+          "y": 2,
+          "description": "A sabotaged electrical panel.",
+          "relevance": "Used to stage the crime scene after the murder.",
+          "collectible": false
         },
         {
-          "id": "obj_projection_log",
-          "type": "document",
-          "name": "Projection Timing Log",
-          "position": [7, 2],
-          "relevance": "critical",
-          "description": "Shows the dome blackout occurred precisely at 23:47."
-        }
-      ]
-    },
-    {
-      "id": "car_07",
-      "name": "Observation Dome",
-      "type": "crime_scene",
-      "size": {
-        "width": 12,
-        "height": 7
-      },
-      "connections": {
-        "west": "car_06",
-        "east": "car_08"
-      },
-      "grid": [
-        "WWWWWWWWWWWW",
-        "W....T.....W",
-        "W..S...S...W",
-        "W..........W",
-        "W..B.....C.W",
-        "W.....D....W",
-        "WWWWWWWWWWWW"
-      ],
-      "legend": {
-        "W": "wall",
-        "T": "telescope",
-        "S": "seat",
-        "B": "blood stain",
-        "C": "cracked glass",
-        "D": "door"
-      },
-      "objects": [
-        {
-          "id": "obj_dome_corpse",
-          "type": "corpse",
-          "name": "Magnus Vale",
-          "position": [6, 3],
-          "relevance": "critical",
-          "description": "The corpse of Magnus Vale lies beneath the artificial stars. His expensive coat hides a thin puncture wound beneath the ribs.",
-          "quote": null,
-          "forensicFindings": [
-            "Death occurred before the train entered Blackglass Tunnel.",
-            "Wound caused by a narrow hooked weapon.",
-            "Minimal defensive wounds suggest the victim trusted the killer.",
-            "Blood spray pattern implies the dome rotated after the attack."
-          ]
+          "name": "Hidden Injector Needle",
+          "x": 2,
+          "y": 5,
+          "description": "A toxin-coated injector needle beneath a floor grate.",
+          "relevance": "Matches the concealed mechanism in the fountain pen.",
+          "collectible": true
         },
         {
-          "id": "obj_dome_blood_pattern",
-          "type": "clue",
-          "name": "Circular Blood Spray",
-          "position": [3, 4],
-          "relevance": "major",
-          "description": "The blood arc curves unnaturally around the rotating floor."
-        },
-        {
-          "id": "obj_dome_glass",
-          "type": "clue",
-          "name": "Cracked Glass Panel",
-          "position": [10, 4],
-          "relevance": "red_herring",
-          "description": "Old storm damage unrelated to the murder."
-        }
-      ]
-    },
-    {
-      "id": "car_08",
-      "name": "Greenhouse Car",
-      "type": "surreal_greenhouse",
-      "size": {
-        "width": 11,
-        "height": 7
-      },
-      "connections": {
-        "west": "car_07",
-        "east": "car_09"
-      },
-      "grid": [
-        "WWWWWWWWWWW",
-        "WVV..P..VVW",
-        "WVV..T..VVW",
-        "W....F....W",
-        "WVV.....VVW",
-        "W....D....W",
-        "WWWWWWWWWWW"
-      ],
-      "legend": {
-        "W": "wall",
-        "V": "vine growth",
-        "P": "planter",
-        "T": "gardening table",
-        "F": "fountain",
-        "D": "door"
-      },
-      "objects": [
-        {
-          "id": "obj_greenhouse_passport",
-          "type": "document",
-          "name": "Missing Passport",
-          "position": [5, 1],
-          "relevance": "red_herring",
-          "description": "Belongs to a gambler fleeing debt collectors."
-        }
-      ]
-    },
-    {
-      "id": "car_09",
-      "name": "Sleeping Car",
-      "type": "private_cabins",
-      "size": {
-        "width": 12,
-        "height": 7
-      },
-      "connections": {
-        "west": "car_08",
-        "east": "car_10"
-      },
-      "grid": [
-        "WWWWWWWWWWWW",
-        "W[]..[]..[]W",
-        "W..........W",
-        "W[]..[]..[]W",
-        "W..........W",
-        "W.....D....W",
-        "WWWWWWWWWWWW"
-      ],
-      "legend": {
-        "W": "wall",
-        "[]": "sleep compartment",
-        "D": "door"
-      },
-      "objects": [
-        {
-          "id": "obj_sleeping_porter",
-          "type": "character",
-          "name": "Insomniac Porter",
-          "position": [5, 4],
-          "relevance": "major",
-          "description": "A sleepless porter listening through the thin cabin walls.",
-          "quote": "I saw Sister Agnes enter the Projection Booth carrying her candle staff during the blackout."
-        }
-      ]
-    },
-    {
-      "id": "car_10",
-      "name": "Ghost Caboose",
-      "type": "surreal_radio_room",
-      "size": {
-        "width": 10,
-        "height": 6
-      },
-      "connections": {
-        "west": "car_09"
-      },
-      "grid": [
-        "WWWWWWWWWW",
-        "WRR..RRR.W",
-        "W....P...W",
-        "W.RR..RR.W",
-        "W....D...W",
-        "WWWWWWWWWW"
-      ],
-      "legend": {
-        "W": "wall",
-        "R": "radio",
-        "P": "phonograph",
-        "D": "door"
-      },
-      "objects": [
-        {
-          "id": "obj_ghost_recording",
-          "type": "audio_clue",
-          "name": "Distorted Recording",
-          "position": [5, 2],
-          "relevance": "major",
-          "description": "A damaged recording of Vale threatening Agnes with exposure.",
-          "quote": "You should have let the dead stay buried, Magnus."
+          "name": "Oil-Stained Cloak",
+          "x": 1,
+          "y": 1,
+          "description": "A dark maintenance cloak dusted with silver residue.",
+          "relevance": "Matches Nina Bell's description of the mysterious figure.",
+          "collectible": true
         }
       ]
     }
+  ],
+  "critical_clues": [
+    "Professor Ward identifies paralysis symptoms.",
+    "The victim lacks electrical burns.",
+    "The injector needle matches the mechanism inside the silver fountain pen.",
+    "Nina Bell remembers the silver shoes and metallic clicking.",
+    "Chef Orlov confirms the carving knife was planted.",
+    "The fuse box sabotage happened after death."
+  ],
+  "red_herrings": [
+    "Sebastian Rook's public hatred of Elias",
+    "The bloody carving knife",
+    "The blackout and apparent electrocution",
+    "The syringes in Dr. Vale's medical case"
   ]
 }
